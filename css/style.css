@@ -1,0 +1,540 @@
+/* =====================================================================
+   style.css — Sharon Chen Photography
+
+   A white-wall gallery: the photos carry all the color, the page stays
+   quiet. Newsreader (serif) for titles and captions, Geist (sans) for
+   everything functional.
+
+     1. Tokens
+     2. Base
+     3. Header + footer
+     4. Home: hero slideshow + statement
+     5. Galleries (justified rows) + collection covers
+     6. Collection page
+     7. Contact page
+     8. Viewer (lightbox)
+     9. Small screens + reduced motion
+   ===================================================================== */
+
+
+/* 1. TOKENS ----------------------------------------------------------- */
+
+:root {
+  color-scheme: light;
+
+  --paper: #ffffff;
+  --ink: #161616;
+  --ink-2: #6b6b6b;      /* secondary text — 5.3:1 on white */
+  --rule: #e6e6e3;
+  --well: #f1f1ef;       /* placeholder behind images while they load */
+  --night: #000000;      /* the viewer */
+
+  --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+
+  --gutter: clamp(16px, 4vw, 56px);
+  --max: 1440px;
+  --row: 300px;          /* target row height for the justified galleries */
+  --gap: 10px;
+}
+
+
+/* 2. BASE ------------------------------------------------------------- */
+
+@view-transition { navigation: auto; }
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 15px/1.55 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { font-family: var(--serif); font-weight: 400; text-wrap: balance; }
+
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+button { font: inherit; color: inherit; }
+
+.wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* Images fade in once decoded, instead of popping in. */
+.fade { opacity: 0; transition: opacity 0.5s ease; }
+.fade.is-loaded { opacity: 1; }
+
+.text-link {
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 2px;
+  transition: border-color 0.2s ease;
+}
+.text-link:hover { border-color: var(--ink); }
+
+
+/* 3. HEADER + FOOTER -------------------------------------------------- */
+
+.site-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-top: 22px;
+  padding-bottom: 22px;
+}
+
+.wordmark {
+  font-family: var(--serif);
+  font-size: 1.45rem;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+.site-nav { display: flex; gap: 1.75rem; }
+
+.site-nav a {
+  font-size: 0.875rem;
+  color: var(--ink-2);
+  transition: color 0.2s ease;
+}
+.site-nav a:hover { color: var(--ink); }
+.site-nav a[aria-current="page"] {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 1px;
+}
+
+.site-footer {
+  margin-top: clamp(5rem, 10vw, 9rem);
+  border-top: 1px solid var(--rule);
+}
+
+.site-footer .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+  padding-top: 28px;
+  padding-bottom: 36px;
+  font-size: 0.8125rem;
+  color: var(--ink-2);
+}
+
+.site-footer a:hover { color: var(--ink); }
+
+
+/* 4. HOME ------------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  height: calc(100svh - 150px);
+  min-height: 420px;
+  max-height: 980px;
+  background: var(--well);
+  overflow: hidden;
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.4s ease;
+}
+.hero-slide.is-active { opacity: 1; }
+
+.hero-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* The museum-label line under the hero: title + place on the left,
+   position in the sequence + controls on the right. */
+.hero-caption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 14px;
+  min-height: 48px;
+}
+
+.hero-caption-text { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 1rem; }
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: 1.125rem;
+  font-style: italic;
+}
+
+.hero-place { font-size: 0.8125rem; color: var(--ink-2); }
+
+.hero-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.8125rem;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.hero-controls button {
+  background: none;
+  border: 0;
+  padding: 4px 8px;
+  cursor: pointer;
+  color: var(--ink-2);
+  font-size: 1rem;
+  line-height: 1;
+}
+.hero-controls button:hover { color: var(--ink); }
+
+.statement {
+  padding-top: clamp(4rem, 9vw, 8rem);
+  padding-bottom: clamp(4rem, 9vw, 7rem);
+}
+
+.statement p {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(1.75rem, 3.6vw, 3rem);
+  line-height: 1.18;
+  letter-spacing: -0.012em;
+  max-width: 24ch;
+}
+
+.statement .text-link {
+  display: inline-block;
+  margin-top: 2rem;
+  font-size: 0.9375rem;
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-head h2 { font-size: clamp(1.5rem, 2.4vw, 1.875rem); }
+.section-head a { font-size: 0.875rem; color: var(--ink-2); }
+.section-head a:hover { color: var(--ink); }
+
+.section + .section { margin-top: clamp(5rem, 9vw, 8rem); }
+
+
+/* 5. GALLERIES -------------------------------------------------------- */
+
+/* Justified rows: every tile in a row is the same height and nothing is
+   cropped. js/gallery.js (fitRows) sets exact sizes; the flex-grow rules
+   below are only a fallback in case the script hasn't run yet. */
+.justified {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+}
+
+.tile {
+  position: relative;
+  flex-grow: var(--r);
+  flex-basis: calc(var(--r) * var(--row));
+  aspect-ratio: var(--r);
+  background: var(--well);
+  overflow: hidden;
+  cursor: zoom-in;
+  padding: 0;
+  border: 0;
+}
+
+.tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tile::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.25s ease;
+}
+.tile:hover::after { background: rgba(0, 0, 0, 0.08); }
+
+.collections {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(2rem, 3vw, 3rem) var(--gap);
+}
+
+.collection-card { display: block; }
+
+.collection-card-frame {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--well);
+}
+
+.collection-card-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.5s ease;
+}
+.collection-card:hover .collection-card-frame img { transform: scale(1.03); }
+
+.collection-card-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding-top: 14px;
+}
+
+.collection-card-label h3 { font-size: 1.375rem; }
+
+.collection-card-count {
+  font-size: 0.8125rem;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+
+/* 6. COLLECTION PAGE -------------------------------------------------- */
+
+.page-head {
+  padding-top: clamp(2.5rem, 6vw, 5rem);
+  padding-bottom: clamp(2rem, 4vw, 3.5rem);
+}
+
+.page-head h1 {
+  font-size: clamp(2.75rem, 7vw, 5.5rem);
+  line-height: 1;
+  letter-spacing: -0.025em;
+}
+
+.page-head-sub {
+  margin-top: 1rem;
+  font-size: 0.9375rem;
+  color: var(--ink-2);
+}
+
+.crumb {
+  display: inline-block;
+  font-size: 0.875rem;
+  color: var(--ink-2);
+  margin-bottom: 1.5rem;
+}
+.crumb:hover { color: var(--ink); }
+
+.next-collection {
+  display: block;
+  margin-top: clamp(4rem, 8vw, 7rem);
+  padding-top: 2rem;
+  border-top: 1px solid var(--rule);
+}
+
+.next-collection span {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--ink-2);
+  margin-bottom: 0.5rem;
+}
+
+.next-collection strong {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2rem, 5vw, 3.75rem);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  transition: opacity 0.2s ease;
+}
+.next-collection:hover strong { opacity: 0.6; }
+
+
+/* 7. CONTACT ---------------------------------------------------------- */
+
+.contact {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: end;
+  padding-top: clamp(2.5rem, 6vw, 5rem);
+}
+
+.contact h1 {
+  font-size: clamp(2.75rem, 7vw, 5.5rem);
+  line-height: 1;
+  letter-spacing: -0.025em;
+}
+
+.contact-body {
+  margin-top: 1.75rem;
+  max-width: 38ch;
+  color: var(--ink-2);
+  font-size: 1rem;
+}
+
+.contact-email {
+  display: inline-block;
+  margin-top: 2.5rem;
+  font-family: var(--serif);
+  font-size: clamp(1.375rem, 2.6vw, 2rem);
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 4px;
+  transition: opacity 0.2s ease;
+}
+.contact-email:hover { opacity: 0.6; }
+
+.contact-meta {
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.5rem 2rem;
+  font-size: 0.875rem;
+}
+.contact-meta dt { color: var(--ink-2); }
+.contact-meta dd { margin: 0; }
+
+.contact-photo {
+  height: min(calc(100svh - 180px), 760px);
+  min-height: 360px;
+  background: var(--well);
+  overflow: hidden;
+}
+.contact-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+
+/* 8. VIEWER ----------------------------------------------------------- */
+
+.viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--night);
+  color: #f2f2f2;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.viewer[hidden] { display: none; }
+.viewer.is-open { opacity: 1; }
+
+.viewer-top, .viewer-bottom {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 16px var(--gutter);
+  font-size: 0.8125rem;
+}
+
+.viewer-count { color: #9a9a9a; font-variant-numeric: tabular-nums; }
+
+.viewer button {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  color: #9a9a9a;
+  padding: 6px 0;
+  transition: color 0.2s ease;
+}
+.viewer button:hover { color: #fff; }
+.viewer button:focus-visible { outline-color: #fff; }
+
+.viewer-stage {
+  position: relative;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--gutter);
+}
+
+.viewer-photo {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Prev/next cover each half of the stage, so a click anywhere on the
+   left or right of the photo moves through the set. */
+.viewer-prev, .viewer-next {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+}
+.viewer .viewer-prev { left: 0; justify-content: flex-start; padding-left: var(--gutter); cursor: w-resize; }
+.viewer .viewer-next { right: 0; justify-content: flex-end; padding-right: var(--gutter); cursor: e-resize; }
+.viewer-prev span, .viewer-next span { opacity: 0; transition: opacity 0.2s ease; }
+.viewer-prev:hover span, .viewer-next:hover span,
+.viewer-prev:focus-visible span, .viewer-next:focus-visible span { opacity: 1; }
+
+.viewer-caption { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 1rem; }
+
+.viewer-title {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.0625rem;
+  color: #f2f2f2;
+}
+
+.viewer-place { color: #9a9a9a; }
+
+
+/* 9. SMALL SCREENS + REDUCED MOTION ----------------------------------- */
+
+@media (max-width: 900px) {
+  .collections { grid-template-columns: repeat(2, 1fr); }
+  .contact { grid-template-columns: 1fr; align-items: start; }
+  .contact-photo { height: auto; min-height: 0; aspect-ratio: 3 / 2; order: -1; }
+}
+
+@media (max-width: 600px) {
+  :root { --row: 170px; --gap: 6px; }
+
+  .site-header { padding-top: 18px; padding-bottom: 18px; }
+  .wordmark { font-size: 1.25rem; }
+  .site-nav { gap: 1.25rem; }
+
+  .hero { height: 62svh; min-height: 340px; }
+  .hero-caption { flex-direction: column; gap: 0.25rem; }
+  .hero-controls { margin-left: -8px; }
+
+  .collections { grid-template-columns: 1fr 1fr; gap: 1.75rem var(--gap); }
+  .collection-card-label { flex-direction: column; gap: 0.1rem; padding-top: 10px; }
+  .collection-card-label h3 { font-size: 1.125rem; }
+
+  /* On touch screens, swipe instead of tapping half the photo. */
+  .viewer-prev span, .viewer-next span { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; }
+}

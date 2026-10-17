@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Collections — Sharon Chen</title>
+<meta name="description" content="Photographs by Sharon Chen: night skies, wildlife and cities, from Taipei to Yosemite." />
+<meta property="og:title" content="Collections — Sharon Chen" />
+<meta property="og:description" content="Photographs by Sharon Chen: night skies, wildlife and cities, from Taipei to Yosemite." />
+<meta property="og:image" content="photos/san-diego-yosemite/07.jpg" />
+<meta name="theme-color" content="#ffffff" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header class="site-header wrap">
+  <a class="wordmark" href="index.html">Sharon Chen</a>
+  <nav class="site-nav" aria-label="Main">
+    <a href="photos.html" aria-current="page">Collections</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <!-- Index of every collection: shown when the URL has no ?category= -->
+  <section id="collections-index" class="wrap">
+    <div class="page-head">
+      <h1>Collections</h1>
+    </div>
+    <div class="collections" id="collections-grid"></div>
+  </section>
+
+  <!-- One collection: photos.html?category=<id> -->
+  <section id="collection-view" class="wrap" hidden>
+    <div class="page-head">
+      <a class="crumb" href="photos.html">All collections</a>
+      <h1 id="collection-title"></h1>
+      <p class="page-head-sub" id="collection-sub"></p>
+    </div>
+    <div class="justified" id="collection-grid"></div>
+    <a class="next-collection" id="next-collection" href="photos.html">
+      <span>Next collection</span>
+      <strong></strong>
+    </a>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>&copy; <span id="year"></span> Sharon Chen. All photographs by the author.</span>
+    <a href="mailto:sch312413@gmail.com">sch312413@gmail.com</a>
+  </div>
+</footer>
+
+<!-- Full-screen viewer, shared by every gallery (js/gallery.js) -->
+<div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+  <div class="viewer-top">
+    <span class="viewer-count" id="viewer-count"></span>
+    <button type="button" id="viewer-close">Close</button>
+  </div>
+  <div class="viewer-stage">
+    <img class="viewer-photo" id="viewer-photo" alt="" />
+    <button type="button" class="viewer-prev" id="viewer-prev" aria-label="Previous photo"><span aria-hidden="true">&larr;</span></button>
+    <button type="button" class="viewer-next" id="viewer-next" aria-label="Next photo"><span aria-hidden="true">&rarr;</span></button>
+  </div>
+  <div class="viewer-bottom">
+    <div class="viewer-caption">
+      <span class="viewer-title" id="viewer-title"></span>
+      <span class="viewer-place" id="viewer-place"></span>
+    </div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/gallery.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
