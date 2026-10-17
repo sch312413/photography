@@ -7,7 +7,7 @@
 
 const SITE = /*SITE-START*/{
   "categories": [
-    {"id": "san-diego-yosemite", "label": "San Diego & Yosemite", "folder": "San Diego and Yosemite", "cover": "photos/san-diego-yosemite/06.jpg"},
+    {"id": "san-diego-yosemite", "label": "San Diego & Yosemite", "folder": "San Diego and Yosemite", "cover": "photos/san-diego-yosemite/01.jpg"},
     {"id": "japan", "label": "Japan", "folder": "japa", "cover": "photos/japan/09.jpg", "place": "Japan"},
     {"id": "daan-park", "label": "Daan Park", "folder": "daan park", "cover": "photos/daan-park/09.jpg", "place": "Daan Forest Park, Taipei"},
     {"id": "taipei", "label": "Taipei", "folder": "taipei", "cover": "photos/taipei/01.jpg", "place": "Taipei"},
@@ -20,8 +20,6 @@ const SITE = /*SITE-START*/{
     {"src": "photos/san-diego-yosemite/03.jpg", "category": "san-diego-yosemite", "title": "Stars above the treeline", "place": "Yosemite, California", "w": 1200, "h": 1800, "original": "San Diego and Yosemite/DSC07356 2.jpg"},
     {"src": "photos/san-diego-yosemite/04.jpg", "category": "san-diego-yosemite", "title": "The Milky Way, Yosemite", "place": "Yosemite, California", "w": 1800, "h": 1200, "original": "San Diego and Yosemite/DSC07371 2.PNG"},
     {"src": "photos/san-diego-yosemite/05.jpg", "category": "san-diego-yosemite", "title": "Night sky, long exposure", "place": "Yosemite, California", "w": 1800, "h": 1200, "original": "San Diego and Yosemite/DSC07372 2.PNG"},
-    {"src": "photos/san-diego-yosemite/06.jpg", "category": "san-diego-yosemite", "title": "Milky Way over the ridge", "place": "Yosemite, California", "w": 1200, "h": 1800, "featured": 3, "original": "San Diego and Yosemite/DSC07375 3.PNG"},
-    {"src": "photos/san-diego-yosemite/07.jpg", "category": "san-diego-yosemite", "title": "Galactic core and mountain edge", "place": "Yosemite, California", "w": 1800, "h": 1200, "hero": true, "original": "San Diego and Yosemite/DSC07379.PNG"},
     {"src": "photos/san-diego-yosemite/08.jpg", "category": "san-diego-yosemite", "title": "Star field", "place": "Yosemite, California", "w": 1200, "h": 1800, "original": "San Diego and Yosemite/DSC07386 2.PNG"},
     {"src": "photos/san-diego-yosemite/09.jpg", "category": "san-diego-yosemite", "title": "Granite and pines", "place": "Yosemite, California", "w": 1200, "h": 1800, "original": "San Diego and Yosemite/DSC07424 3.jpg"},
     {"src": "photos/san-diego-yosemite/10.jpg", "category": "san-diego-yosemite", "title": "Meadow pool through the trees", "place": "Yosemite, California", "w": 1800, "h": 1200, "original": "San Diego and Yosemite/DSC07551 2.jpg"},
